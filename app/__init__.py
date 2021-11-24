@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -12,6 +13,7 @@ my_app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 
 
 db = SQLAlchemy(my_app)
 migrate = Migrate(my_app, db)
+login_manager = LoginManager(my_app)
 
 from app import routes
 
