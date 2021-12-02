@@ -1,0 +1,35 @@
+<html>
+    <head>
+      <title>Welcome to Microblog</title> 
+      <style>
+        *{
+          font-family: "Courier New", Courier, monospace;
+font-size: 32px;
+letter-spacing: 2px;
+word-spacing: 2px;
+color: #000000;
+font-weight: 700;
+text-decoration: none;
+font-style: normal;
+font-variant: normal;
+text-transform: none;
+        }
+        body{
+          background-image: url('https://mobimg.b-cdn.net/v3/fetch/9f/9f4cb3afa66a10791fa9f9abb1447cd9.jpeg');
+
+        }
+      </style>
+    </head>
+    <body>
+      <h2>Links<h2>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <a href="/index">|Home Page|</a>
+      <a href="/date">Date info|</a>
+      {% if current_user.is_anonymous %}
+      <a href="/login">Login|</a>
+      {% else %}
+      <a href="/logout">Logout|</a>
+      {% endif %}
+        <hr>
+    </body>
+</html>

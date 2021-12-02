@@ -1,19 +1,44 @@
 from flask.templating import render_template
-from app import my_app
+from flask_login import login_required
+from app import my_app, db
 import datetime
 from flask_login import current_user, login_user, logout_user
 from flask import render_template, redirect, url_for, request
 from app.models import User
 
+@my_app.route('/register', methods=['POST', 'GET'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('login'))
+    
+    if request.method=='POST':
+        form = request.form
+        inputed_username = form.get('username')
+        inputed_password = form.get('password')
+        inputed_email = bool(form.get('email'))
+        
+        user = User(username=inputed_username, email=inputed_email)
+        user.set_password(inputed_password)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for("login"))
+    else:
+        return render_template("register.html")
+        
+        
+        
 
 
 @my_app.route('/date')
+@login_required
 def get_date():
     date = str(datetime.datetime.now())
     return render_template("date.html", time = date)
+    
 
 @my_app.route('/')
 @my_app.route('/index')
+@login_required
 def index():
     return render_template("index.html") 
 

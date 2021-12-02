@@ -4,25 +4,23 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Register</title>
 </head>
 <body>
   {% include 'links.html' %}
-  <h1 style="text-align:center">Login</h1>
+  <h1 style="text-align:center">Sign up</h1>
   <form style="text-align:center" action="" method="post"> 
-  <input name='username' placeholder='username' type="text">
-  
+    <input name='username' placeholder='username' type="text" required>
     <br>
     <br>
-  <input name='password' placeholder='password' type="password">
+  <input name='password' placeholder='password' type="password" required>
     <br>
     <br>
-  Remember me <input name='remember' type="checkbox">
+    <input name='email' placeholder='email' type="email" required>
     <br>
     <br>
-   <button>Login!</button>
+   <button>Sign up!</button>
    
-   <p>New User? <a href="{{ url_for('register')}}">Click to Register!</a></p>
   </form>
   
 </body>
