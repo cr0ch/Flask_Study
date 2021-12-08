@@ -4,31 +4,34 @@
       <style>
         *{
           font-family: "Courier New", Courier, monospace;
-font-size: 32px;
-letter-spacing: 2px;
-word-spacing: 2px;
+          font-family: "Comic Sans MS", cursive, sans-serif;
+font-size: 21px;
+letter-spacing: 2.4px;
+word-spacing: 0px;
 color: #000000;
-font-weight: 700;
-text-decoration: none;
+font-weight: 400;
+text-decoration: none solid rgb(68, 68, 68);
 font-style: normal;
 font-variant: normal;
 text-transform: none;
         }
         body{
-          background-image: url('https://mobimg.b-cdn.net/v3/fetch/9f/9f4cb3afa66a10791fa9f9abb1447cd9.jpeg');
+          background-image: url('https://catherineasquithgallery.com/uploads/posts/2021-02/1613710604_67-p-minimalistichnii-fon-dlya-prezentatsii-92.jpg');
 
         }
       </style>
     </head>
     <body>
       <h2>Links<h2>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <a href="/index">|Home Page|</a>
-      <a href="/date">Date info|</a>
+      <meta name="viewport" content="height=device-height, initial-scale=1.0">
+      <a href="/index">| Home Page |</a>
+      <a href="/date"> Date info |</a>
       {% if current_user.is_anonymous %}
-      <a href="/login">Login|</a>
+      <a href="/login"> Login |</a>
+      <a href="/register">Sign up |</a>
       {% else %}
-      <a href="/logout">Logout|</a>
+      <a href="/logout"> Logout |</a>
+      <a href="{{url_for('user', username=current_user.username)}}"> My profile |</a>
       {% endif %}
         <hr>
     </body>

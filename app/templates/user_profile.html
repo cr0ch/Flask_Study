@@ -4,16 +4,19 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Profile</title>
 </head>
 <body>
-  <img src="" alt="Аватарка">
+  {% include 'links.html' %}
+  <img src="{{user.get_avatar(128)}}" alt="Аватарка">
   <br>
-  <h1>User:#</h1>
+  <h1>{{user.username}}</h1>
   <p>About me</p>
-  <p>Last seen</p>
+  <p>Last seen: UTC {{user.last_seen}} </p>
   <hr>
-  <p><img src="" alt="Аватарка"> username: text</p>
+  <p><img src="{{user.get_avatar(52)}}" alt="Аватарка"> {{user.username}} says:</p>
+  
+  
   
 </body>
 </html>

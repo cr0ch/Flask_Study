@@ -1,3 +1,5 @@
 1. 'call venv/scripts/activate' Заходим в вертуальную среду.
 
 2. 'flask run' Запускаем.
+
+3. 'set FLASK_DEBUG=1'

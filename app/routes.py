@@ -1,3 +1,4 @@
+from re import template
 from flask.templating import render_template
 from flask_login import login_required
 from app import my_app, db
@@ -5,6 +6,7 @@ import datetime
 from flask_login import current_user, login_user, logout_user
 from flask import render_template, redirect, url_for, request
 from app.models import User
+
 
 @my_app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -15,7 +17,7 @@ def register():
         form = request.form
         inputed_username = form.get('username')
         inputed_password = form.get('password')
-        inputed_email = bool(form.get('email'))
+        inputed_email = (form.get('email'))
         
         user = User(username=inputed_username, email=inputed_email)
         user.set_password(inputed_password)
@@ -68,5 +70,30 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+@my_app.route('/user/<username>')
+@login_required
+def user(username):
+    user_from_db = User.query.filter_by(username=username).first_or_404()
+    
+    return render_template('user_profile.html', user=user_from_db)
+
+@my_app.errorhandler(404)
+def error_handler_404(error):
+    return render_template('404.html'), 404 
+
+@my_app.errorhandler(500)
+def error_handler_500(error):
+    db.session.rollback()
+    return render_template('500.html'), 500
+
+@my_app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.datetime.utcnow()
+        db.session.commit()
+
+
+
      
     
