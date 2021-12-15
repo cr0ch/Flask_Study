@@ -1,16 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
+  
+  <style>
+  body {
+    background-image: url(https://cdn.discordapp.com/attachments/781591422586585099/919665913438015488/144.jpg);
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: -3% -130%;
+    }
+  span {
+    display: inline-block;
+    transform: translate(17em, -2em);
+}
+  </style>
 </head>
 <body>
   {% include 'links.html' %}
+  
+  <p class="fig"><img src="https://cdn.discordapp.com/attachments/781591422586585099/919653615856140338/1222.jpg" width="100px" height="100px"></p>
+  <style>
+  .fig {
+    text-align: center; 
+    
+  }</style>
+  
   <h1 style="text-align:center">Login</h1>
+  <span><h1>Hello again!</h1></span>
   <form style="text-align:center" action="" method="post"> 
   <input name='username' placeholder='username' type="text">
+ 
   
     <br>
     <br>
@@ -20,10 +44,40 @@
   Remember me <input name='remember' type="checkbox">
     <br>
     <br>
-   <button>Login!</button>
-   
-   <p>New User? <a href="{{ url_for('register')}}">Click to Register!</a></p>
+  <button class="floating-button" >Login!</button> 
+   <p>New User? <a href="{{ url_for('register')}}" style="color:#00ffc8" >Click to Register!</a></p>
+ 
+   <style>
+     body {
+
+}
+.floating-button {
+  text-decoration: none;
+  display: inline-block;
+  width: 140px;
+  height: 45px;
+  line-height: 45px;
+  border-radius: 45px;
+  margin: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 3px;
+  font-weight: 600;
+  color: #524f4e;
+  background: white;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
+  transition: .3s;
+}
+.floating-button:hover {
+  background: #2EE59D;
+  box-shadow: 0 15px 20px rgba(46, 229, 157, .4);
+  color: white;
+  transform: translateY(-7px);
+}
+   </style>
   </form>
-  
+
 </body>
 </html>

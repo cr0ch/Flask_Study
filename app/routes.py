@@ -64,6 +64,7 @@ def login():
         return redirect(url_for('index'))
 
     return render_template("login.html")
+    
 
 
 @my_app.route('/logout')
@@ -92,6 +93,28 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.datetime.utcnow()
         db.session.commit()
+
+@my_app.route('/edit_profile', methods=['POST','GET']) 
+@login_required
+def edit_profile():
+    if request.method == 'GET':
+        return render_template("edit_profile.html")
+    elif request.method == 'POST':
+        form = request.form
+        inputed_new_username = form.get('new_username')
+        inputed_about_me = form.get('about_me').strip( )
+        if inputed_new_username.isalnum(): 
+            current_user.username = inputed_new_username
+        # TODO Сделать сообщение об ошибке
+        current_user.about_me = inputed_about_me
+        db.session.commit()
+        print(inputed_about_me)
+        print(inputed_new_username)
+        return redirect(url_for('user', username = current_user.username))
+
+        
+
+
 
 
 
