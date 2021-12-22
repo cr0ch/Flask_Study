@@ -5,7 +5,8 @@ from app import my_app, db
 import datetime
 from flask_login import current_user, login_user, logout_user
 from flask import render_template, redirect, url_for, request
-from app.models import User
+from app.models import User, Post
+
 
 
 @my_app.route('/register', methods=['POST', 'GET'])
@@ -42,7 +43,8 @@ def get_date():
 @my_app.route('/index')
 @login_required
 def index():
-    return render_template("index.html") 
+    all_posts = Post.query.all()
+    return render_template("index.html", posts=all_posts) 
 
 
 @my_app.route('/login', methods=['POST', 'GET'])
@@ -76,8 +78,8 @@ def logout():
 @login_required
 def user(username):
     user_from_db = User.query.filter_by(username=username).first_or_404()
-    
-    return render_template('user_profile.html', user=user_from_db)
+    user_posts = Post.query.filter_by(author=user_from_db)
+    return render_template('user_profile.html', user=user_from_db, posts=user_posts)
 
 @my_app.errorhandler(404)
 def error_handler_404(error):
@@ -111,6 +113,21 @@ def edit_profile():
         print(inputed_about_me)
         print(inputed_new_username)
         return redirect(url_for('user', username = current_user.username))
+
+@my_app.route('/add_post', methods=['POST','GET']) 
+@login_required
+def add_post():
+    if request.method == 'GET':
+        return render_template("add_post.html")
+    if request.method == 'POST':
+        form = request.form
+        text = form.get('text_post').strip()
+        post = Post(text=text, timestamp=datetime.datetime.utcnow(), author=current_user)
+
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('user', username = current_user.username))
+
 
         
 
