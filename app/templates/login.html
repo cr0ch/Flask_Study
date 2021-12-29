@@ -32,19 +32,24 @@
   
   <h1 style="text-align:center">Login</h1>
   <span><h1>Hello again!</h1></span>
+
   <form style="text-align:center" action="" method="post"> 
+  {% for msg in get_flashed_messages() %}
+  {{msg}}
+  {% endfor %}
+  <br>
   <input name='username' placeholder='username' type="text">
- 
-  
     <br>
     <br>
   <input name='password' placeholder='password' type="password">
+
     <br>
     <br>
   Remember me <input name='remember' type="checkbox">
     <br>
     <br>
   <button class="floating-button" >Login!</button> 
+  <p><a href="{{ url_for('reset_password')}}" style="color:#00ffc8" >Forgot password?</a></p>
    <p>New User? <a href="{{ url_for('register')}}" style="color:#00ffc8" >Click to Register!</a></p>
  
    <style>

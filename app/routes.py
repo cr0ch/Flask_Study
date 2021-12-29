@@ -1,11 +1,15 @@
 from re import template
 from flask.templating import render_template
 from flask_login import login_required
-from app import my_app, db
+from app import my_app, db, mail
 import datetime
 from flask_login import current_user, login_user, logout_user
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, flash
 from app.models import User, Post
+import secrets
+import string
+from flask_mail import Message
+
 
 
 
@@ -59,7 +63,7 @@ def login():
         remember = bool(form.get('remember'))
         user = User.query.filter_by(username=inputed_username).first()
         if user is None or not user.check_password(inputed_password): 
-            # TODO flash message
+            flash('Invalid username or password')
             return redirect(url_for('login'))
         # else
         login_user(user, remember=remember)
@@ -127,6 +131,47 @@ def add_post():
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('user', username = current_user.username))
+
+@my_app.route('/reset_password', methods=['POST','GET'])
+def reset_password():
+    if request.method == 'GET':
+        return render_template("reset_password.html")
+    if request.method == 'POST':
+        form = request.form
+        email = form.get('email')
+        user = User.query.filter_by(email=email).first()
+        if user is None:
+            return redirect(url_for('reset_password'))
+        else:
+            password = generator_password()
+            send_mail(email, user.username, password)
+            user.set_password(password)
+            db.session.commit()
+            return redirect(url_for('login'))
+
+
+
+
+
+def generator_password():
+    alphabet = string.ascii_letters + string.digits
+    password = ''.join(secrets.choice(alphabet) for i in range(20))
+    return password
+
+def send_mail(recipient, username, new_password):
+    msg = Message('Reset password.[Microblog]', sender='Microblog', recipients=[recipient])
+    msg.body = f'''
+    Здравствуйте {username}!
+    Вы запросили заявку на восстановление пароля.
+    Вот и он: {new_password}'''
+    mail.send(msg)
+
+
+    
+
+
+
+
 
 
         
