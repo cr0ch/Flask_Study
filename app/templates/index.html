@@ -27,18 +27,21 @@
       display: block;
       float: right;
     }
+
     </style> 
 
 
-<h1>This is mainpage of microblog   
-<br>
-Hello, {{current_user.username}}</h1>
-{%for post in posts%}
+
+{%if posts.items %}
+{%for post in posts.items%}
   <p class="post"><img src="{{post.author.get_avatar(52)}}" alt="Аватарка"> {{post.author.username}} says:{{post.text}}</p>
   <br>
-  
 {%endfor%}
-  
+{% if posts.has_prev %} <a href= "{{url_for('index', page=posts.prev_num)}}">&#8592;</a>{% endif %}
+{% if posts.has_next %} <a href= "{{url_for('index', page=posts.next_num)}}">&#8594;</a>{% endif %}
+{% else %}
+  <h2>Posts ended, please wait for users to post</h2>
+{% endif %}
     
        
 

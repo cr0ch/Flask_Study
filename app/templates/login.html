@@ -36,7 +36,9 @@
   <form style="text-align:center" action="" method="post"> 
   {% for msg in get_flashed_messages() %}
   {{msg}}
+  <br>
   {% endfor %}
+
   <br>
   <input name='username' placeholder='username' type="text">
     <br>

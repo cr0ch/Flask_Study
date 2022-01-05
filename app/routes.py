@@ -44,11 +44,13 @@ def get_date():
     
 
 @my_app.route('/')
+@my_app.route('/index/<int:page>')
 @my_app.route('/index')
 @login_required
-def index():
-    all_posts = Post.query.all()
-    return render_template("index.html", posts=all_posts) 
+def index(page=1):
+    paginated_posts = Post.query.order_by(Post.timestamp.desc()).paginate(page, 5, False)
+    return render_template("index.html", posts=paginated_posts)
+     
 
 
 @my_app.route('/login', methods=['POST', 'GET'])
@@ -79,10 +81,11 @@ def logout():
     return redirect(url_for('login'))
 
 @my_app.route('/user/<username>')
+@my_app.route('/user/<username>/<int:page>')
 @login_required
-def user(username):
+def user(username, page=1):
     user_from_db = User.query.filter_by(username=username).first_or_404()
-    user_posts = Post.query.filter_by(author=user_from_db)
+    user_posts = user_from_db.posts.order_by(Post.timestamp.desc()).paginate(page, 5, False)
     return render_template('user_profile.html', user=user_from_db, posts=user_posts)
 
 @my_app.errorhandler(404)

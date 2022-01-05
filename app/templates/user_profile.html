@@ -46,10 +46,17 @@
   </p>
   <p>Last seen: UTC {{user.last_seen}} </p>
   <hr>
-  {%for post in posts%}
-  <p class="post"><img src="{{user.get_avatar(52)}}" alt="Аватарка"> <span>{{user.username}} says:{{post.text}}</span></p>
-  <br>
+  {%if posts.items %}
+  {%for post in posts.items%}
+    <p class="post"><img src="{{user.get_avatar(52)}}" alt="Аватарка"> {{user.username}} says:{{post.text}}</p>
+    <br>
   {%endfor%}
+  {% if posts.has_prev %} <a href= "{{url_for('user', username=user.username, page=posts.prev_num)}}">&#8592;</a>{% endif %}
+  {% if posts.has_next %} <a href= "{{url_for('user', username=user.username, page=posts.next_num)}}">&#8594;</a>{% endif %}
+  {% else %}
+    <h2>Posts ended, please wait for users to post</h2>
+  {% endif %}
+
   
 
 
