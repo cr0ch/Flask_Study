@@ -27,6 +27,7 @@ class User(db.Model, UserMixin):
     def get_avatar(self, size):
         hashed_email = md5(self.email.lower().encode('utf-8')).hexdigest()
         return f"https://www.gravatar.com/avatar/{hashed_email}?d=identicon&s={size}"
+        
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)

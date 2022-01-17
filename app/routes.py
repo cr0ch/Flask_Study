@@ -88,6 +88,15 @@ def user(username, page=1):
     user_posts = user_from_db.posts.order_by(Post.timestamp.desc()).paginate(page, 5, False)
     return render_template('user_profile.html', user=user_from_db, posts=user_posts)
 
+@my_app.route("/delete_post/<int:post_id>")
+def delete_post(post_id):
+    post = Post.query.get(post_id)
+    if post.author == current_user:
+        db.session.delete(post)
+        db.session.commit()
+    return redirect(request.referrer)
+    
+
 @my_app.errorhandler(404)
 def error_handler_404(error):
     return render_template('404.html'), 404 
@@ -168,6 +177,8 @@ def send_mail(recipient, username, new_password):
     Вы запросили заявку на восстановление пароля.
     Вот и он: {new_password}'''
     mail.send(msg)
+
+
 
 
     
