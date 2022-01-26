@@ -1,46 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  
 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
 </head>
+{% include 'links.html' %}
+
 <body>
-  {% include 'links.html' %}
-  
-  <p class="fig"><img src="https://cdn.discordapp.com/attachments/781591422586585099/919653615856140338/1222.jpg" width="100px" height="100px"></p>
+    <div class="container">
+        <p class="fig"><img src="https://cdn.discordapp.com/attachments/781591422586585099/919653615856140338/1222.jpg" width="100px" height="100px"></p>
+        <h1>Login</h1>
+        <form class="login-form" action="" method="post">
+            {% for msg in get_flashed_messages() %} {{msg}}<br>{% endfor %}
 
-  
-  <h1 style="text-align:center">Login</h1>
-  <span><h1>Hello again!</h1></span>
+            <input name='username' placeholder='username' type="text">
 
-  <form style="text-align:center" action="" method="post"> 
-  {% for msg in get_flashed_messages() %}
-  {{msg}}
-  <br>
-  {% endfor %}
 
-  <br>
-  <input name='username' placeholder='username' type="text">
-    <br>
-    <br>
-  <input name='password' placeholder='password' type="password">
-
-    <br>
-    <br>
-  Remember me <input name='remember' type="checkbox">
-    <br>
-    <br>
-  <button class="floating-button" >Login!</button> 
-  <p><a href="{{ url_for('reset_password')}}" style="color:#00ffc8" >Forgot password?</a></p>
-   <p>New User? <a href="{{ url_for('register')}}" style="color:#00ffc8" >Click to Register!</a></p>
- 
-
-  </form>
-
+            <input name='password' placeholder='password' type="password"> Remember me <input name='remember' type="checkbox">
+            <button class="floating-button">Login!</button>
+            <p><a href="{{ url_for('reset_password')}}" style="color:#00ffc8">Forgot password?</a></p>
+            <p>New User? <a href="{{ url_for('register')}}" style="color:#00ffc8">Click to Register!</a></p>
+        </form>
+    </div>
 </body>
+
 </html>

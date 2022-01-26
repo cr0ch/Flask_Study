@@ -1,35 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
 
 </head>
+{% include 'links.html' %}
+
 <body>
-  
-  {% include 'links.html' %}
-  <p class="fig"><img src="https://cdn.discordapp.com/attachments/781591422586585099/919653615856140338/1222.jpg" width="100px" height="100px"></p>
- 
-
-
-  <h1 style="text-align:center">Sign up</h1>
-  <form style="text-align:center" action="" method="post"> 
-    <input name='username' placeholder='username' type="text" required>
-    <br>
-    <br>
-  <input name='password' placeholder='password' type="password" required>
-    <br>
-    <br>
-    <input name='email' placeholder='email' type="email" required>
-    <br>
-    <br>
-    <button class="floating-button" >Sign up!</button> 
-
-
-  </form>
-  
+    <p class="fig"><img src="https://cdn.discordapp.com/attachments/781591422586585099/919653615856140338/1222.jpg" width="100px" height="100px"></p>
+    <h1 style="text-align:center">Sign up</h1>
+    <form style="text-align:center" action="" method="post">
+        <input name='username' placeholder='username' type="text" required>
+        <input name='password' placeholder='password' type="password" required>
+        <input name='email' placeholder='email' type="email" required>
+        <br>
+        <button class="floating-button">Sign up!</button>
+    </form>
 </body>
+
 </html>
