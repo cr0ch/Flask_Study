@@ -161,9 +161,13 @@ def reset_password():
             db.session.commit()
             return redirect(url_for('login'))
 
-
-
-
+@my_app.route('/miscellaneous_information', methods=['POST','GET'])
+def miscellaneous_information():
+    if request.method == 'GET':
+        return render_template("miscellaneous_information.html")
+    if request.method == 'POST':
+        form = request.form
+    
 
 def generator_password():
     alphabet = string.ascii_letters + string.digits
@@ -177,6 +181,8 @@ def send_mail(recipient, username, new_password):
     Вы запросили заявку на восстановление пароля.
     Вот и он: {new_password}'''
     mail.send(msg)
+
+
 
 
 

@@ -138,3 +138,148 @@ input[type=email] {
     border-radius:10px; 
     background: #8af0df;
 }
+
+.links-body{
+    text-align: center;
+}
+
+.section {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 50%;
+}
+
+.skills {
+	font-weight: bold;
+	text-transform: uppercase;
+	color: rgb(0, 0, 0);
+	font-size: 50px;
+	margin-bottom: 30px;
+}
+
+.diagram {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+}
+
+.skillBLock {
+	height: 380px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	flex-direction: column;
+}
+
+.column {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50px;
+}
+
+.skillBLock:first-child .column {
+	background: #e3e65c;
+	height: calc(350px / 100 * 85); /*85%*/
+	animation: appFir 2s 1;
+}
+
+.skillBLock:nth-child(2) .column {
+	background: #ccb7e4;
+	height: calc(350px / 100 * 90); /*90%*/
+	animation: appSec 2s 1;
+}
+
+.skillBLock:nth-child(3) .column {
+	background: #c87ce4;
+	height: calc(350px / 100 * 70); /*70%*/
+	animation: appThi 2s 1;
+}
+
+.skillBLock:last-child .column {
+	background: #81d4df;
+	height: calc(350px / 100 * 75); /*75%*/
+	animation: appFou 2s 1;
+}
+
+.column span {
+	transform: rotate(-90deg);
+	color: rgb(255, 255, 255);
+	font-weight: bold;
+	font-size: 25px;
+	animation: app 3s 1;
+}
+
+.name {
+	text-transform: uppercase;
+	color: rgb(0, 0, 0);
+	font-weight: bold;
+	font-size: 10px;
+	margin-top: 10px;
+}
+
+@keyframes appFir {
+	0% {
+		height: 0;
+	}
+	20% {
+		height: 0;
+	}
+	100% {
+		height: calc(350px / 100 * 85);
+	}
+}
+
+@keyframes appSec {
+	0% {
+		height: 0;
+	}
+	20% {
+		height: 0;
+	}
+	100% {
+		height: calc(350px / 100 * 90);
+	}
+}
+
+@keyframes appThi {
+	0% {
+		height: 0;
+	}
+	20% {
+		height: 0;
+	}
+	100% {
+		height: calc(350px / 100 * 70);
+	}
+}
+
+@keyframes appFou {
+	0% {
+		height: 0;
+	}
+	20% {
+		height: 0;
+	}
+	100% {
+		height: calc(350px / 100 * 75);
+	}
+}
+
+@keyframes app {
+	0% {
+		opacity: 0;
+	}
+	70% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
