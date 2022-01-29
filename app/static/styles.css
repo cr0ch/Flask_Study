@@ -133,3 +133,8 @@ input[type=email] {
 .login-form {
     text-align: center;
 }
+
+.links-a{
+    border-radius:10px; 
+    background: #8af0df;
+}
