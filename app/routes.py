@@ -161,10 +161,10 @@ def reset_password():
             db.session.commit()
             return redirect(url_for('login'))
 
-@my_app.route('/miscellaneous_information', methods=['POST','GET'])
+@my_app.route('/settings', methods=['POST','GET'])
 def miscellaneous_information():
     if request.method == 'GET':
-        return render_template("miscellaneous_information.html")
+        return render_template("settings.html")
     if request.method == 'POST':
         form = request.form
     

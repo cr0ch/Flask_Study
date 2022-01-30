@@ -18,7 +18,7 @@
     <a href="/add_post" class="links-a"> Add post |</a>
     <a href="{{url_for('user', username=current_user.username)}}" class="links-a"> My profile |</a> {%if request.path == '/user/'+ current_user.username%} 
     <a href="/edit_profile" class="links-a"> Edit profile |</a> {% endif %} {% endif %}
-    <a href="/miscellaneous_information" class="links-a">Miscellaneous information|</a>
+    <a href="/settings" class="links-a">Settings|</a>
     <hr>
 </body>
 
