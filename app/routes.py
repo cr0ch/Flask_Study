@@ -8,6 +8,7 @@ from flask import render_template, redirect, url_for, request, flash
 from app.models import User, Post
 import secrets
 import string
+import json
 from flask_mail import Message
 
 
@@ -181,6 +182,16 @@ def send_mail(recipient, username, new_password):
     Вы запросили заявку на восстановление пароля.
     Вот и он: {new_password}'''
     mail.send(msg)
+
+@my_app.route('/api/login', methods=['POST'])
+def api_login():
+    data = json.loads(request.data)
+    
+    user = User.query.filter_by(username=data['username']).first()
+    if user is None or not user.check_password(data['password']): 
+        return 'Invalid username or password', 400
+    else:
+        return 'Login ok', 200
 
 
 
