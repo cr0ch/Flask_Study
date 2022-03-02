@@ -227,5 +227,18 @@ def send_post():
         db.session.commit()
         return 'Post added', 200
 
-    
-    
+@my_app.route('/api/get_posts')
+def get_posts():
+    posts = Post.query.all()
+    posts_serial = []
+    for post in posts:
+        posts_serial.append({
+            'id': post.id,
+            'text': post.text,
+            'time': str(post.timestamp),
+            'author': {
+                'name': post.author.username,
+                'avatar': post.author.get_avatar(64)
+            }
+        })
+    return json.dumps(posts_serial)
