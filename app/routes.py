@@ -238,7 +238,8 @@ def get_posts():
             'time': str(post.timestamp),
             'author': {
                 'name': post.author.username,
-                'avatar': post.author.get_avatar(64)
+                'avatar': post.author.get_avatar(64),
+                'id': post.author.id
             }
         })
     return json.dumps(posts_serial)
