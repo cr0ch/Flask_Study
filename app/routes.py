@@ -5,7 +5,7 @@ from app import my_app, db, mail
 import datetime
 from flask_login import current_user, login_user, logout_user
 from flask import render_template, redirect, url_for, request, flash
-from app.models import User, Post
+from app.models import Likes, User, Post
 import secrets
 import string
 import json
@@ -198,7 +198,7 @@ def api_login():
     if user is None or not user.check_password(data['password']):
         return 'Invalid username or password', 400
     else:
-        return 'Login ok', 200
+        return {'id': user.id, 'username': user.username, 'avatar_url': user.get_avatar(256)}, 200
 
 
 @my_app.route('/api/register', methods=['POST'])
@@ -211,9 +211,10 @@ def api_register():
     db.session.commit()
     return 'register ok', 200
 
+
 @my_app.route('/api/send_post', methods=['POST'])
 def send_post():
-    data = json.loads(request.data) 
+    data = json.loads(request.data)
     user_id = data['user_id']
     text = data['text']
     user = User.query.get(user_id)
@@ -227,6 +228,7 @@ def send_post():
         db.session.commit()
         return 'Post added', 200
 
+
 @my_app.route('/api/get_posts')
 def get_posts():
     posts = Post.query.all()
@@ -234,6 +236,7 @@ def get_posts():
     for post in posts:
         posts_serial.append({
             'id': post.id,
+            'likes': post.likes_count,
             'text': post.text,
             'time': str(post.timestamp),
             'author': {
@@ -243,3 +246,32 @@ def get_posts():
             }
         })
     return json.dumps(posts_serial)
+
+@my_app.route("/api/delete_post")
+def api_delete_post():
+    post = Post.query.get('post_id')
+    if post.author == current_user:
+        db.session.delete(post)
+        db.session.commit()
+    return redirect(request.referrer)
+
+@my_app.route('/api/like', methods=['POST'])
+def like():
+    data = json.loads(request.data)
+    user_id = data['user_id']
+    post_id = data['post_id']
+    post = Post.query.get(post_id)
+    like = Likes.query.filter_by(user_id=user_id, post_id=post_id).first()
+    if like is None: #u_i не ставил лайк p_i
+        post.likes_count += 1
+        like = Likes(user_id=user_id, post_id=post_id)
+        db.session.add(like) 
+        db.session.commit()
+        
+    else:
+        post.likes_count -= 1
+        db.session.delete(like)
+        db.session.commit()
+    return str(post.likes_count)    
+
+    
