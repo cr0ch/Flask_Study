@@ -1,3 +1,4 @@
+
 from re import template
 from flask.templating import render_template
 from flask_login import login_required
@@ -232,6 +233,7 @@ def send_post():
 @my_app.route('/api/get_posts')
 def get_posts():
     posts = Post.query.all()
+    user_id = request.args['user_id']
     posts_serial = []
     for post in posts:
         posts_serial.append({
@@ -239,6 +241,7 @@ def get_posts():
             'likes': post.likes_count,
             'text': post.text,
             'time': str(post.timestamp),
+            'is_like': bool(Likes.query.filter_by(user_id=user_id, post_id=post.id).first()),
             'author': {
                 'name': post.author.username,
                 'avatar': post.author.get_avatar(64),
@@ -247,13 +250,16 @@ def get_posts():
         })
     return json.dumps(posts_serial)
 
-@my_app.route("/api/delete_post")
+@my_app.route("/api/delete_post", methods=['POST'])
 def api_delete_post():
-    post = Post.query.get('post_id')
-    if post.author == current_user:
+    data = json.loads(request.data)
+    user_id = data['user_id']
+    post_id = data['post_id']
+    post = Post.query.get(post_id)
+    if post.author.id == user_id:
         db.session.delete(post)
         db.session.commit()
-    return redirect(request.referrer)
+    return 'Post deleted', 202 
 
 @my_app.route('/api/like', methods=['POST'])
 def like():
