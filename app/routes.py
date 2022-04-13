@@ -232,9 +232,6 @@ def send_post():
 
 @my_app.route('/api/get_posts')
 def get_posts():
-    posts = Post.query.all()
-    user_id = request.args['user_id']
-    posts_serial = []
     for post in posts:
         posts_serial.append({
             'id': post.id,
@@ -279,5 +276,3 @@ def like():
         db.session.delete(like)
         db.session.commit()
     return str(post.likes_count)    
-
-    
