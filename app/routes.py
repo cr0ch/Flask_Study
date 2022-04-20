@@ -1,5 +1,6 @@
 
 from re import template
+from wsgiref.util import request_uri
 from flask.templating import render_template
 from flask_login import login_required
 from app import my_app, db, mail
@@ -232,7 +233,12 @@ def send_post():
 
 @my_app.route('/api/get_posts')
 def get_posts():
-    for post in posts:
+    page = int(request.args['page'])
+    qty = int(request.args['qty'])
+    posts = Post.query.order_by(Post.timestamp.desc()).paginate(page, qty , False)
+    user_id = request.args['user_id']
+    posts_serial = []
+    for post in posts.items:
         posts_serial.append({
             'id': post.id,
             'likes': post.likes_count,
